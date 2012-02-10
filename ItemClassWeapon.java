@@ -63,6 +63,22 @@ public abstract class ItemClassWeapon extends Item
     }
     
     /**
+     * This callback will fire when the player attempts to use this weapon (right-click?), and they are wearing all dependent
+     * armor.
+     * @param itemstack This item
+     * @param entityplayer The player attempting to use the weapon
+     * @param world THE WORLD
+     * @param i X coordinate of the block they've used it on
+     * @param j Y coordinate of the block they've used it on
+     * @param k Z coordinate of the block they've used it on
+     * @param l I'm actually not sure, some kind of metadata?  Scott?
+     */
+    public boolean onSuccessfulUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
+    {
+    	return true;
+    }
+    
+    /**
      * This callback will fire when the weapon is used to attack an entity and the player is NOT wearing all dependent armor.
      * Note: the weapon WILL AUTOMATICALLY FAIL to harm the entity.
      * @param itemstack This item
@@ -84,6 +100,22 @@ public abstract class ItemClassWeapon extends Item
     public void onFailedRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
     	return;
+    }
+    
+    /**
+     * This callback will fire when the player attempts to use this weapon (right-click?), and they are NOT wearing all dependent
+     * armor.  Perhaps you want to harm the player here?
+     * @param itemstack This item
+     * @param entityplayer The player attempting to use the weapon
+     * @param world THE WORLD
+     * @param i X coordinate of the block they've used it on
+     * @param j Y coordinate of the block they've used it on
+     * @param k Z coordinate of the block they've used it on
+     * @param l I'm actually not sure, some kind of metadata?  Scott?
+     */
+    public boolean onFailedUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
+    {
+    	return false;
     }
     
     @Override
@@ -114,5 +146,17 @@ public abstract class ItemClassWeapon extends Item
     	
         onSuccessfulRightClick(itemstack, world, entityplayer);
         return itemstack;
+    }
+
+    @Override
+    public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
+    {
+    	for (ItemClassArmor armor : _dependencies) {
+    		if (!mod_Classes.checkDependency(entityplayer, armor)) {
+        		return onFailedUse(itemstack, entityplayer, world, i, j, k, l);
+        	}
+        }
+    	
+        return onSuccessfulUse(itemstack, entityplayer, world, i, j, k, l);
     }
 }

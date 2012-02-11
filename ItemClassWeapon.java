@@ -123,12 +123,23 @@ public abstract class ItemClassWeapon extends Item
     {
     	EntityPlayer entityplayer = (EntityPlayer)entityliving1;
     	
+    	int renderIndex = -1;
     	for (ItemClassArmor armor : _dependencies) {
+    		renderIndex = armor.renderIndex;
     		if (!mod_Classes.checkDependency(entityplayer, armor)) {
         		onFailedAttack(itemstack, entityliving, entityplayer);
         		return false;
         	}
         }
+		
+		for (int i = 0; i < 4; i++) {
+			ItemStack armorSlot = entityplayer.inventory.armorItemInSlot(i);
+			// player is wearing another class' armor
+			if (armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
+				onFailedAttack(itemstack, entityliving, entityplayer);
+				return false;
+			}
+		}
     	
         onSuccessfulAttack(itemstack, entityliving, entityplayer);
         return true;
@@ -137,12 +148,23 @@ public abstract class ItemClassWeapon extends Item
     @Override
     public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
+    	int renderIndex = -1;
     	for (ItemClassArmor armor : _dependencies) {
+    		renderIndex = armor.renderIndex;
     		if (!mod_Classes.checkDependency(entityplayer, armor)) {
         		onFailedRightClick(itemstack, world, entityplayer);
         		return itemstack;
         	}
         }
+		
+		for (int i = 0; i < 4; i++) {
+			ItemStack armorSlot = entityplayer.inventory.armorItemInSlot(i);
+			// player is wearing another class' armor
+			if (armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
+				onFailedRightClick(itemstack, world, entityplayer);
+				return itemstack;
+			}
+		}
     	
         onSuccessfulRightClick(itemstack, world, entityplayer);
         return itemstack;
@@ -151,11 +173,21 @@ public abstract class ItemClassWeapon extends Item
     @Override
     public boolean onItemUse(ItemStack itemstack, EntityPlayer entityplayer, World world, int i, int j, int k, int l)
     {
+    	int renderIndex = -1;
     	for (ItemClassArmor armor : _dependencies) {
+    		renderIndex = armor.renderIndex;
     		if (!mod_Classes.checkDependency(entityplayer, armor)) {
         		return onFailedUse(itemstack, entityplayer, world, i, j, k, l);
         	}
         }
+		
+		for (int m = 0; m < 4; m++) {
+			ItemStack armorSlot = entityplayer.inventory.armorItemInSlot(m);
+			// player is wearing another class' armor
+			if (armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
+				return onFailedUse(itemstack, entityplayer, world, i, j, k, l);
+			}
+		}
     	
         return onSuccessfulUse(itemstack, entityplayer, world, i, j, k, l);
     }

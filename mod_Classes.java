@@ -80,6 +80,7 @@ public class mod_Classes extends BaseMod
 	
 	/**
 	 * Performs a check against the specified player's inventory to see if they are wearing the specified armor.
+	 * TODO: checking against a different class' armor should go here, somehow
 	 * @param entityplayer The player whose inventory to check
 	 * @param armorSought The armor which you want to search for on the player's person
 	 * @return Whether or not the player is wearing the armor

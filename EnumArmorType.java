@@ -1,6 +1,6 @@
 package net.minecraft.src;
 
-public enum ArmorType
+public enum EnumArmorType
 {
 	Helmet,
 	Plate,

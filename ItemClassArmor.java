@@ -18,7 +18,7 @@ public class ItemClassArmor extends ItemArmor
 	 * @param armorType The type of armor; where it goes on one's body (Helmet, Legs, etc.)
 	 * @param defenseScore How effective the armor is (where leather == 0 and diamond == 3)
 	 */
-	public ItemClassArmor(int itemId, String armorGroup, ArmorType armorType, int defenseScore)
+	public ItemClassArmor(int itemId, String armorGroup, EnumArmorType armorType, int defenseScore)
     {
         this(itemId, armorGroup, armorType, defenseScore, 1);
     }
@@ -30,7 +30,7 @@ public class ItemClassArmor extends ItemArmor
 	 * @param defenseScore How effective the armor is (where leather == 0 and diamond == 3)
 	 * @param maxStackSize The max number of items that can fit in one stack
 	 */
-    public ItemClassArmor(int itemId, String armorGroup, ArmorType armorType, int defenseScore, int maxStackSize)
+    public ItemClassArmor(int itemId, String armorGroup, EnumArmorType armorType, int defenseScore, int maxStackSize)
     {
         super(itemId, defenseScore, mod_Classes.getArmorGroupId(armorGroup), _getArmorType(armorType));
         setIconCoord(mod_Classes.getArmorGroupId(armorGroup), _getArmorType(armorType));
@@ -48,7 +48,7 @@ public class ItemClassArmor extends ItemArmor
     /**
      * Gets the numeric ID of the Armor Type that is accepted by core Minecraft code
      */
-    protected static int _getArmorType(ArmorType armorType)
+    protected static int _getArmorType(EnumArmorType armorType)
     {
     	switch(armorType) {
 	    	case Helmet:

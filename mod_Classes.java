@@ -50,13 +50,14 @@ public class mod_Classes extends BaseMod
 	 * @param armor The armor object itself
 	 * @return The armor object on success, or null if a piece of armor already exists by this name
 	 */
-	public static ItemClassArmor addArmor(String armorName, ItemClassArmor armor)
+	public static ItemClassArmor addArmor(String armorName, String armorTitle, ItemClassArmor armor)
 	{
 		if (_armors.containsKey(armorName)) {
 			return null;
 		}
 		
 		armor.setItemName(armorName);
+		ModLoader.AddName(armor, armorTitle);
 		_armors.put(armorName, armor);
 		return armor;
 	}
@@ -67,15 +68,26 @@ public class mod_Classes extends BaseMod
 	 * @param weapon The weapon object itself
 	 * @return The weapon object on success, or null if a weapon already exists by this name
 	 */
-	public static ItemClassWeapon addWeapon(String weaponName, ItemClassWeapon weapon)
+	public static ItemClassWeapon addWeapon(String weaponName, String weaponTitle, ItemClassWeapon weapon)
 	{
 		if (_weapons.containsKey(weaponName)) {
 			return null;
 		}
 		
 		weapon.setItemName(weaponName);
+		ModLoader.AddName(weapon, weaponTitle);
 		_weapons.put(weaponName, weapon);
 		return weapon;
+	}
+	
+	public static ItemClassArmor getArmor(String armorName)
+	{
+		return _armors.get(armorName);
+	}
+	
+	public static ItemClassWeapon getWeapon(String weaponName)
+	{
+		return _weapons.get(weaponName);
 	}
 	
 	/**

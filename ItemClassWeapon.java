@@ -135,7 +135,7 @@ public abstract class ItemClassWeapon extends Item
 		for (int i = 0; i < 4; i++) {
 			ItemStack armorSlot = entityplayer.inventory.armorItemInSlot(i);
 			// player is wearing another class' armor
-			if (armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
+			if (armorSlot != null && armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
 				onFailedAttack(itemstack, entityliving, entityplayer);
 				return false;
 			}
@@ -160,7 +160,7 @@ public abstract class ItemClassWeapon extends Item
 		for (int i = 0; i < 4; i++) {
 			ItemStack armorSlot = entityplayer.inventory.armorItemInSlot(i);
 			// player is wearing another class' armor
-			if (armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
+			if (armorSlot != null && armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
 				onFailedRightClick(itemstack, world, entityplayer);
 				return itemstack;
 			}
@@ -184,7 +184,7 @@ public abstract class ItemClassWeapon extends Item
 		for (int m = 0; m < 4; m++) {
 			ItemStack armorSlot = entityplayer.inventory.armorItemInSlot(m);
 			// player is wearing another class' armor
-			if (armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
+			if (armorSlot != null && armorSlot.getItem() instanceof ItemClassArmor && ((ItemArmor)armorSlot.getItem()).renderIndex != renderIndex) {
 				return onFailedUse(itemstack, entityplayer, world, i, j, k, l);
 			}
 		}
